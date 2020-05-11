@@ -51,10 +51,13 @@ public class trainerController {
     
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String saveTrainer(ModelMap view, Trainer trainer){
-        if(trainerService.save(trainer))
-            view.addAttribute("msg", new String("The new Trainer has been saved!"));
+        if(trainerService.save(trainer)){
+            view.addAttribute("success", "User " + trainer.getFirstName() + " "+ trainer.getLastName() + " registered successfully");
+            return("registrationsuccess");
+            //view.addAttribute("msg", new String("The new Trainer has been saved!"));
+        }
         else
-            view.addAttribute("msg", new String("Something went wrong.."));
+        view.addAttribute("msg", new String("Something went wrong.."));
         view.addAttribute("listurl", trainerService.getListUrl());
         return("newtrainer");
     }
